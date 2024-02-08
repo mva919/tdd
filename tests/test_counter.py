@@ -61,3 +61,15 @@ class CounterTest(TestCase):
         """It should return an error for a counter that does not exist"""
         result = self.client.put('/counters/does_not_exist')
         self.assertEqual(result.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_delete_a_counter(self):
+        """It should delete a counter"""
+        result = self.client.post('/counters/delete_counter')
+        self.assertEqual(result.status_code, status.HTTP_201_CREATED)
+        result = self.client.delete('/counters/delete_counter')
+        self.assertEqual(result.status_code, status.HTTP_204_NO_CONTENT)
+        
+    def test_delete_a_counter_that_does_not_exist(self):
+        """It should return an error for a counter that does not exist"""
+        result = self.client.delete('/counters/delete_counter_does_not_exist')
+        self.assertEqual(result.status_code, status.HTTP_404_NOT_FOUND)
